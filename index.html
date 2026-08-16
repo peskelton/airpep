@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIR PEP Solutions</title>
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --navy: #1B3A6B;
+    --teal: #1E7A5F;
+    --air-blue: #A8D4E6;
+    --air-green: #7ECFB0;
+    --white: #FFFFFF;
+    --off-white: #F4F8FA;
+    --light-gray: #E8EFF3;
+    --text-dark: #0F2240;
+    --text-muted: #4A6280;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 3rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid rgba(27,58,107,0.08);
+  }
+
+  .nav-wordmark img {
+    height: 36px;
+    width: auto;
+    display: block;
+  }
+
+  .nav-right {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem 4rem;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-animation {
+    position: relative;
+    width: 480px;
+    max-width: 90vw;
+    margin-bottom: 3rem;
+  }
+
+  .hero-animation video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Mist rings */
+  .mist-rings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .mist-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    border: 1px solid rgba(168,212,230,0.35);
+    transform: translate(-50%, -50%) scale(0.9);
+    animation: mistExpand 5s ease-out infinite;
+  }
+
+  .mist-ring:nth-child(1) {
+    width: 380px;
+    height: 380px;
+    animation-delay: 0s;
+    border-color: rgba(168,212,230,0.4);
+  }
+
+  .mist-ring:nth-child(2) {
+    width: 480px;
+    height: 480px;
+    animation-delay: 1.2s;
+    border-color: rgba(126,207,176,0.25);
+  }
+
+  .mist-ring:nth-child(3) {
+    width: 580px;
+    height: 580px;
+    animation-delay: 2.4s;
+    border-color: rgba(168,212,230,0.15);
+  }
+
+  .mist-ring:nth-child(4) {
+    width: 680px;
+    height: 680px;
+    animation-delay: 3.6s;
+    border-color: rgba(126,207,176,0.08);
+  }
+
+  @keyframes mistExpand {
+    0% {
+      transform: translate(-50%, -50%) scale(0.85);
+      opacity: 0;
+    }
+    15% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1.15);
+      opacity: 0;
+    }
+  }
+
+  /* PATENT BADGE */
+  .patent-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 1rem;
+    border: 1px solid rgba(30,122,95,0.3);
+    border-radius: 2rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+  }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    animation: dotPulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes dotPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.7); }
+  }
+
+  /* TAGLINE */
+  .tagline {
+    font-size: 1rem;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+    font-weight: 300;
+    text-align: center;
+    max-width: 440px;
+    line-height: 1.75;
+    margin-bottom: 3rem;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--navy), var(--teal));
+    margin: 0 auto 3rem;
+    border-radius: 2px;
+  }
+
+  /* CREDENTIALS */
+  .credentials {
+    display: flex;
+    gap: 3.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+
+  .cred-item {
+    text-align: center;
+  }
+
+  .cred-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+  }
+
+  .cred-value {
+    font-size: 0.88rem;
+    color: var(--navy);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--off-white);
+    border-top: 1px solid var(--light-gray);
+  }
+
+  .contact-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+  }
+
+  .contact-email {
+    font-size: 0.95rem;
+    color: var(--teal);
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+
+  .contact-email:hover {
+    color: var(--navy);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 1.25rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--navy);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.04em;
+  }
+
+  .footer-patent {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.04em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    nav {
+      padding: 1rem 1.5rem;
+    }
+
+    .nav-wordmark img {
+      height: 28px;
+    }
+
+    .hero-animation {
+      width: 320px;
+    }
+
+    .credentials {
+      gap: 2rem;
+    }
+
+    footer {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.25rem 1.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mist-ring, .badge-dot {
+      animation: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-wordmark">
+      <img src="images/AirPep_Wordmark.png" alt="AIR PEP Solutions">
+    </div>
+    <div class="nav-right">Respiratory Innovation</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="patent-badge">
+      <span class="badge-dot"></span>
+      Patent Granted
+    </div>
+
+    <div class="hero-animation">
+      <div class="mist-rings">
+        <div class="mist-ring"></div>
+        <div class="mist-ring"></div>
+        <div class="mist-ring"></div>
+        <div class="mist-ring"></div>
+      </div>
+      <video autoplay loop muted playsinline>
+        <source src="images/AirPep_Hero_Animation.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <p class="tagline">Advancing respiratory therapy through proprietary innovation and patented technology.</p>
+
+    <div class="divider"></div>
+
+    <div class="credentials">
+      <div class="cred-item">
+        <div class="cred-label">Status</div>
+        <div class="cred-value">FDA 510(k) In Progress</div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-label">IP</div>
+        <div class="cred-value">Patent Granted 2024</div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-label">Sector</div>
+        <div class="cred-value">Respiratory Medicine</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+  <div class="contact-section">
+    <div class="contact-label">Inquiries</div>
+    <a href="mailto:info@airpepsolutions.com" class="contact-email">info@airpepsolutions.com</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-copy">© 2026 AIR-PEP Solutions LLC. All rights reserved.</div>
+    <div class="footer-patent">U.S. Patent Granted · Idaho Limited Liability Company</div>
+  </footer>
+
+</body>
+</html>
